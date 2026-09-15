@@ -1,0 +1,64 @@
+﻿@model ONEE_Stage.Models.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login - ONEE Internship Portal";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-80px)] bg-[#faf8ff] py-12 px-4">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <span class="px-3 py-1 rounded-full bg-[#eaedff] text-[#0061a7] font-bold text-xs uppercase tracking-wider">Authentication</span>
+            <h1 class="text-2xl md:text-3xl font-bold text-[#001e40] mt-3">Welcome Back</h1>
+            <p class="text-xs text-gray-500 mt-1">Sign in to manage your internship applications or portal account.</p>
+        </div>
+
+        <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="space-y-5">
+            <div asp-validation-summary="ModelOnly" class="text-xs font-bold text-red-600 bg-red-50 p-3 rounded-xl border border-red-100"></div>
+
+            <!-- Email Field -->
+            <div>
+                <label asp-for="Email" class="block text-xs font-bold text-[#001e40] mb-1.5">Email Address</label>
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">mail</span>
+                    <input asp-for="Email" class="w-full pl-10 pr-4 py-3 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all" placeholder="student@university.ac.ma" />
+                </div>
+                <span asp-validation-for="Email" class="text-[11px] text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label asp-for="Password" class="block text-xs font-bold text-[#001e40] mb-1.5">Password</label>
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">lock</span>
+                    <input asp-for="Password" type="password" class="w-full pl-10 pr-4 py-3 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all" placeholder="••••••••" />
+                </div>
+                <span asp-validation-for="Password" class="text-[11px] text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input asp-for="RememberMe" class="w-4 h-4 text-[#0061a7] bg-[#f2f3ff] border-gray-300 rounded focus:ring-[#0061a7]" />
+                    <span class="text-xs font-medium text-[#43474f]">Remember me</span>
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full py-3.5 bg-[#001e40] hover:bg-[#0061a7] text-white font-bold text-sm rounded-xl transition-colors shadow-md flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">login</span>
+                <span>Sign In</span>
+            </button>
+        </form>
+
+        <!-- Register Link for Students -->
+        <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+            <p class="text-xs text-[#43474f]">
+                Don't have a candidate account yet?
+                <a asp-action="Register" class="font-bold text-[#0061a7] hover:underline ml-1">Register here</a>
+            </p>
+        </div>
+
+    </div>
+</div>

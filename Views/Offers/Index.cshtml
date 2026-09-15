@@ -1,0 +1,198 @@
+@model IEnumerable<ONEE_Stage.Models.ViewModels.OfferViewModel>
+@using ONEE_Stage.Models.Enums
+
+@{
+    ViewData["Title"] = "Portail des Stages ONEE - Catalogue";
+    bool isStaff = User.IsInRole("Admin") || User.IsInRole("HRManager");
+}
+
+<div class="flex flex-col w-full bg-[#faf8ff] min-h-screen">
+    <!-- Subtle ambient decorative glow -->
+    <div class="relative w-full overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#54a7ff]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-80 -left-20 w-80 h-80 bg-[#d5e3ff]/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Institutional Hero Section -->
+        <section class="relative max-w-[1280px] mx-auto px-4 md:px-8 pt-8 pb-10">
+            <div class="flex flex-col lg:flex-row gap-8 items-start justify-between">
+                <!-- Left Content -->
+                <div class="flex flex-col max-w-3xl">
+                    <div class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#eaedff] text-[#001e40] shadow-sm mb-4">
+                        <span class="w-2 h-2 rounded-full bg-[#0061a7] animate-pulse"></span>
+                        <span class="font-bold text-[11px] uppercase tracking-wider">
+                            OFFICE NATIONAL DE L'ÉLECTRICITÉ ET DE L'EAU POTABLE
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl lg:text-[40px] font-bold text-[#001e40] tracking-tight leading-tight mb-3">
+                        Trouvez Votre Stage d'Excellence à l'ONEE
+                    </h1>
+
+                    <p class="text-base text-[#43474f] max-w-2xl leading-relaxed mb-8">
+                        Contribuez activement à la souveraineté énergétique et à la gestion pérenne des ressources hydriques du Royaume du Maroc. Découvrez nos immersions pratiques en Observation, PFA et PFE.
+                    </p>
+                </div>
+
+                <!-- Right Side Institutional Visual -->
+                <div class="w-full lg:w-96 flex flex-col gap-4">
+                    <div class="relative w-full h-48 rounded-xl overflow-hidden shadow-md group">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="Solar plant substation" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#001e40]/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-[#54a7ff]">bolt</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-[#54a7ff]">Transition Énergétique</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Bar -->
+        <section class="max-w-[1280px] mx-auto px-4 md:px-8 pb-6 w-full relative z-10">
+            <form method="get" asp-action="Index" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-3 items-center">
+
+                <div class="relative w-full md:flex-1">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+                    <input type="text" name="searchString" value="@ViewBag.CurrentSearch" placeholder="Rechercher par titre ou mot-clé..." class="w-full h-11 pl-10 pr-3 rounded-lg bg-[#f2f3ff] text-sm focus:bg-white focus:ring-2 focus:ring-[#0061a7] outline-none transition-all">
+                </div>
+
+                <div class="relative w-full md:w-64 shrink-0">
+                    <select name="department" asp-items="ViewBag.Departments" class="w-full h-11 px-3 rounded-lg bg-[#f2f3ff] text-sm font-semibold text-[#131b2e] outline-none focus:bg-white focus:ring-2 focus:ring-[#0061a7] appearance-none cursor-pointer">
+                        <option value="">Tous les départements</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">arrow_drop_down</span>
+                </div>
+
+                @if (isStaff)
+                {
+                    <div class="relative w-full md:w-48 shrink-0">
+                        <select name="status" asp-items="Html.GetEnumSelectList<OfferStatus>()" class="w-full h-11 px-3 rounded-lg bg-[#f2f3ff] text-sm font-semibold text-[#131b2e] outline-none focus:bg-white focus:ring-2 focus:ring-[#0061a7] appearance-none cursor-pointer">
+                            <option value="">Tous les statuts</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">arrow_drop_down</span>
+                    </div>
+                }
+
+                <div class="flex items-center gap-2 w-full md:w-auto">
+                    <button type="submit" class="flex-1 md:flex-none h-11 px-6 rounded-lg bg-[#001e40] hover:bg-[#0061a7] text-white text-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtrer
+                    </button>
+                    <a asp-action="Index" class="h-11 px-4 rounded-lg bg-[#f2f3ff] hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors" title="Réinitialiser">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                    </a>
+                </div>
+            </form>
+        </section>
+
+        <!-- Internship Offer Cards Grid -->
+        <section class="max-w-[1280px] mx-auto px-4 md:px-8 pb-16 w-full">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-[#0061a7] rounded-full"></span>
+                    <h2 class="text-xl font-bold text-[#001e40]">Offres Disponibles</h2>
+                    <span class="px-3 py-0.5 rounded-full bg-[#eaedff] text-[#0061a7] text-xs font-bold ml-2">@Model.Count() Résultat(s)</span>
+                </div>
+
+                @if (isStaff)
+                {
+                    <a asp-action="Create" class="px-5 py-2.5 rounded-lg bg-[#0061a7] hover:bg-[#001e40] text-white font-bold text-sm transition-colors shadow-sm inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                        <span class="hidden sm:inline">Créer une Nouvelle Offre</span>
+                        <span class="sm:hidden">Créer</span>
+                    </a>
+                }
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100 p-8 flex flex-col items-center">
+                    <span class="material-symbols-outlined text-gray-300 text-6xl mb-3">search_off</span>
+                    <h3 class="text-lg font-bold text-[#001e40]">Aucune offre ne correspond à vos critères</h3>
+                    <p class="text-gray-500 text-sm mt-1">Essayez de modifier vos filtres ou de revenir plus tard.</p>
+                </div>
+            }
+            else
+            {
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach (var offer in Model)
+                    {
+                        <div class="flex flex-col bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all group relative overflow-hidden border border-gray-100">
+                            <!-- Branch Accent Bar -->
+                            <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#0061a7]"></div>
+
+                            <div class="flex items-start justify-between gap-2 mb-3 pt-1">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-[#eaedff] text-[#0061a7] font-bold text-[10px] uppercase tracking-wider">
+                                        @offer.Type
+                                    </span>
+                                </div>
+
+                                <!-- STAFF ONLY: Show Status Badge -->
+                                @if (isStaff)
+                                {
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider whitespace-nowrap
+                                        @(offer.Status == OfferStatus.Published ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
+                                          offer.Status == OfferStatus.Draft ? "bg-amber-50 text-amber-700 border border-amber-200" :
+                                          offer.Status == OfferStatus.Archived ? "bg-gray-100 text-gray-600 border border-gray-200" :
+                                          "bg-red-50 text-red-700 border border-red-200")">
+                                        @offer.Status
+                                    </span>
+                                }
+                            </div>
+
+                            <h3 class="text-base font-bold text-[#001e40] group-hover:text-[#0061a7] transition-colors mb-2 line-clamp-2" title="@offer.Title">
+                                @offer.Title
+                            </h3>
+
+                            <div class="flex items-center gap-1.5 text-[#43474f] text-xs mb-4">
+                                <span class="material-symbols-outlined text-[15px] text-[#0061a7]">domain</span>
+                                <span class="truncate font-medium">@offer.Department • @offer.Specialization</span>
+                            </div>
+
+                            <!-- Metadata Grid -->
+                            <div class="grid grid-cols-2 gap-2 p-3 rounded-lg bg-[#f2f3ff] mb-4 text-xs text-[#131b2e]">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[15px] text-gray-500">schedule</span>
+                                    <span>@offer.Periode</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[15px] text-gray-500">groups</span>
+                                    <span>@offer.AvailablePositions Poste(s)</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto flex items-center justify-between pt-2">
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wider">Date limite</span>
+                                    <span class="text-xs font-bold text-[#001e40]">@offer.Deadline.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    @if (isStaff)
+                                    {
+                                        <a asp-controller="Applications" asp-action="Index" asp-route-offerId="@offer.Id" class="px-3.5 py-2 rounded-lg bg-[#001e40] hover:bg-[#0061a7] text-white text-xs font-bold transition-colors shadow-sm inline-flex items-center gap-1">
+                                            <span>Gérer</span>
+                                            <span class="material-symbols-outlined text-[14px]">folder_shared</span>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@offer.Id" class="p-2 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100 transition-colors" title="Éditer">
+                                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Details" asp-route-id="@offer.Id" class="px-3.5 py-2 rounded-lg bg-[#001e40] hover:bg-[#0061a7] text-white text-xs font-bold transition-colors shadow-sm inline-flex items-center gap-1">
+                                            <span>Postuler</span>
+                                            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </section>
+    </div>
+</div>

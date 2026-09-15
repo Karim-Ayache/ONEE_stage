@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ONEE_Stage.Models.ViewModels.MyApplicationViewModel>
+
+@{
+    ViewData["Title"] = "Mon Tableau de Bord - Portail ONEE";
+}
+
+<div class="flex flex-col w-full bg-[#faf8ff] min-h-screen py-10">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-8 w-full">
+
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-[#001e40]">Mon Espace Candidat</h1>
+                <p class="text-sm text-[#43474f] mt-1">Suivez l'état d'avancement de vos candidatures aux offres de stage ONEE.</p>
+            </div>
+            <a asp-controller="Offers" asp-action="Index" class="px-5 py-2.5 rounded-xl bg-[#eaedff] text-[#0061a7] hover:bg-[#001e40] hover:text-white font-bold text-sm transition-colors shadow-sm inline-flex items-center gap-2 self-start md:self-auto">
+                <span class="material-symbols-outlined text-[18px]">search</span>
+                <span>Consulter les Offres</span>
+            </a>
+        </div>
+
+        <!-- Applications Table Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-6">
+                <h2 class="text-lg font-bold text-[#001e40] flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[#0061a7]">folder_shared</span>
+                    <span>Mes Candidatures Déposées</span>
+                </h2>
+                <span class="px-3 py-1 rounded-full bg-[#f2f3ff] text-[#0061a7] text-xs font-bold">
+                    @Model.Count() Candidature(s)
+                </span>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-16 flex flex-col items-center justify-center">
+                    <div class="w-16 h-16 bg-[#eaedff] text-[#0061a7] rounded-full flex items-center justify-center mb-4 shadow-sm">
+                        <span class="material-symbols-outlined text-[32px]">inbox</span>
+                    </div>
+                    <h3 class="text-base font-bold text-[#001e40]">Aucune candidature enregistrée</h3>
+                    <p class="text-gray-500 text-sm mt-1 max-w-sm">Vous n'avez pas encore postulé à une offre de stage. Explorez nos offres disponibles et tentez votre chance !</p>
+                    <a asp-controller="Offers" asp-action="Index" class="mt-5 px-5 py-2.5 rounded-xl bg-[#001e40] hover:bg-[#0061a7] text-white font-bold text-xs transition-colors shadow-sm inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px]">travel_explore</span>
+                        <span>Découvrir les offres de stage</span>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                                <th class="py-3.5 px-4">Offre de Stage</th>
+                                <th class="py-3.5 px-4">Département</th>
+                                <th class="py-3.5 px-4">Date de Dépôt</th>
+                                <th class="py-3.5 px-4">Statut Actuel</th>
+                                <th class="py-3.5 px-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            @foreach (var app in Model)
+                            {
+                                <tr class="hover:bg-[#fcfcff] transition-colors group">
+                                    <td class="py-4 px-4">
+                                        <div class="font-bold text-[#001e40] text-sm max-w-xs truncate" title="@app.OfferTitle">@app.OfferTitle</div>
+                                        <div class="text-[11px] text-gray-400 font-mono mt-0.5">RÉF-STG-@app.OfferId</div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-[#43474f] font-medium">@app.Department</td>
+                                    <td class="py-4 px-4 text-sm text-[#43474f]">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="material-symbols-outlined text-gray-400 text-[16px]">calendar_today</span>
+                                            <span>@app.AppliedAt.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        @{
+                                            var statusLower = app.Status?.ToLower() ?? "";
+                                        }
+                                        @if (statusLower.Contains("submitted") || statusLower.Contains("soumise") || statusLower.Contains("draft"))
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">hourglass_empty</span> Transmise
+                                            </span>
+                                        }
+                                        else if (statusLower.Contains("review") || statusLower.Contains("scored") || statusLower.Contains("preselected") || statusLower.Contains("cours"))
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">visibility</span> En cours d'étude
+                                            </span>
+                                        }
+                                        else if (statusLower.Contains("interview") || statusLower.Contains("entretien"))
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">event</span> Entretien Planifié
+                                            </span>
+                                        }
+                                        else if (statusLower.Contains("accept") || statusLower.Contains("retenu"))
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">check_circle</span> Candidature Retenue
+                                            </span>
+                                        }
+                                        else if (statusLower.Contains("reject") || statusLower.Contains("refus") || statusLower.Contains("closed"))
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-red-50 text-red-700 border border-red-200 text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">cancel</span> Non retenue
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 border border-gray-200 text-[11px] font-bold uppercase tracking-wider">
+                                                @app.Status
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="py-4 px-4 text-right">
+                                        <a asp-controller="Offers" asp-action="Details" asp-route-id="@app.OfferId" class="p-2 rounded-lg bg-[#f2f3ff] text-[#0061a7] hover:bg-[#001e40] hover:text-white transition-colors inline-flex items-center justify-center shadow-2xs" title="Consulter l'offre">
+                                            <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

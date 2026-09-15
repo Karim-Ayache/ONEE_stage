@@ -1,0 +1,257 @@
+@model ONEE_Stage.Models.ViewModels.OfferViewModel
+
+@{
+    ViewData["Title"] = Model.Title + " - Détails de l'Offre";
+}
+
+<div class="flex flex-col w-full bg-[#faf8ff] min-h-screen">
+    <!-- Subtle ambient decorative glow -->
+    <div class="relative w-full overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#54a7ff]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-80 -left-20 w-80 h-80 bg-[#d5e3ff]/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Breadcrumb & Top Bar -->
+        <section class="max-w-[1280px] mx-auto px-4 md:px-8 pt-6 pb-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-xs text-[#43474f]">
+                    <a asp-action="Index" class="text-[#0061a7] font-semibold hover:underline flex items-center gap-1">
+                        <span>Accueil</span>
+                    </a>
+                    <span>></span>
+                    <span>Offres de Stage</span>
+                    <span>></span>
+                    <span class="text-[#001e40] font-bold truncate max-w-xs">@Model.Department</span>
+                </div>
+                <a asp-action="Index" class="inline-flex items-center gap-1 text-xs font-bold text-[#0061a7] hover:underline self-start md:self-auto">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    <span>Retour aux offres</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Top Title & Quick Badges Bar -->
+        <section class="max-w-[1280px] mx-auto px-4 md:px-8 pb-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="px-3 py-1 rounded-full bg-[#eaedff] text-[#0061a7] font-bold text-xs uppercase tracking-wider">
+                        @Model.Type
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-[#f2f3ff] text-[#43474f] font-medium text-xs">
+                        @Model.Department
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-600 font-mono text-xs">
+                        REF-STG-@Model.Id
+                    </span>
+                </div>
+
+                <h1 class="text-2xl md:text-[28px] font-bold text-[#001e40] tracking-tight leading-snug mb-6">
+                    @Model.Title
+                </h1>
+
+                <!-- Quick Meta Pills Row matching layout image -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-gray-100">
+                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-[#f2f3ff]">
+                        <span class="material-symbols-outlined text-[#0061a7]">location_on</span>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold">Lieu</span>
+                            <span class="text-xs font-bold text-[#001e40]">Casablanca / Siège</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-[#f2f3ff]">
+                        <span class="material-symbols-outlined text-[#0061a7]">schedule</span>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold">Durée / Période</span>
+                            <span class="text-xs font-bold text-[#001e40]">@Model.Periode</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-[#f2f3ff]">
+                        <span class="material-symbols-outlined text-[#0061a7]">calendar_month</span>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold">Session</span>
+                            <span class="text-xs font-bold text-[#001e40]">Printemps / Été</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-[#f2f3ff]">
+                        <span class="material-symbols-outlined text-[#0061a7]">event_upcoming</span>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold">Date Limite</span>
+                            <span class="text-xs font-bold text-[#001e40]">@Model.Deadline.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Body Grid: Left Content & Right Sticky Sidebar -->
+        <section class="max-w-[1280px] mx-auto px-4 md:px-8 pb-16 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+                <!-- Left 2 Columns: Context, Missions, Skills & Process -->
+                <div class="lg:col-span-2 flex flex-col gap-6">
+
+                    <!-- Vignette / Context Box -->
+                    <div class="bg-[#001e40] rounded-2xl p-6 text-white shadow-md relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-[#0061a7]/40 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="relative z-10 flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-[#54a7ff] uppercase tracking-wider">Transition Numérique & Smart Grid</span>
+                            <span class="material-symbols-outlined text-[#54a7ff]">hub</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Pôle Systèmes d'Information & Télémesure Haute Tension</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Contribuez directement au pilotage numérique des réseaux nationaux de distribution électrique. Votre projet sera intégré dans l'écosystème de supervision opérationnelle de l'ONEE.
+                        </p>
+                    </div>
+
+                    <!-- Mission & Context Block -->
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-[#001e40] flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-[#0061a7]">description</span>
+                            <span>À propos de la mission & Contexte</span>
+                        </h3>
+                        <div class="text-[#43474f] text-sm leading-relaxed space-y-4 whitespace-pre-line">
+                            @Model.Description
+                        </div>
+                    </div>
+
+                    <!-- Technical Missions & Responsibilities -->
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-[#001e40] flex items-center gap-2 mb-6">
+                            <span class="material-symbols-outlined text-[#0061a7]">checklist</span>
+                            <span>Missions & Responsabilités Techniques</span>
+                        </h3>
+                        <div class="space-y-4 text-sm text-[#43474f]">
+                            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#f2f3ff]">
+                                <span class="material-symbols-outlined text-[#0061a7] mt-0.5">code</span>
+                                <div>
+                                    <strong class="text-[#001e40] block mb-1">Analyse du besoin & Conception N-Tiers</strong>
+                                    <span>Modélisation du modèle de données unifié sous SQL Server et définition des contrats d'APIs RESTful selon les standards de sécurité étatiques.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#f2f3ff]">
+                                <span class="material-symbols-outlined text-[#0061a7] mt-0.5">terminal</span>
+                                <div>
+                                    <strong class="text-[#001e40] block mb-1">Développement Backend Microservices (C# / .NET 8)</strong>
+                                    <span>Implémentation des modules d'ingestion asynchrone des flux de télémétrie, traitement multi-thread et persistance optimisée avec Entity Framework Core.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-[#f2f3ff]">
+                                <span class="material-symbols-outlined text-[#0061a7] mt-0.5">dashboard</span>
+                                <div>
+                                    <strong class="text-[#001e40] block mb-1">Interface de Visualisation & Tableaux de bord</strong>
+                                    <span>Création de consoles interactives et cartographiques pour les opérateurs régionaux avec alertes temps réel sur dépassements de seuil critiques.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Pills -->
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-[#001e40] mb-4">Compétences Techniques & Environnement</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">C# / .NET 8</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">ASP.NET Core Web API</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">SQL Server & T-SQL</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">Entity Framework Core</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">Docker & Containers</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-[#eaedff] text-[#0061a7] font-bold text-xs">GitLab / Azure DevOps</span>
+                        </div>
+                    </div>
+
+                    <!-- Selection Process Steps -->
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-[#001e40] mb-6">Processus de Sélection Académique</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="flex flex-col p-4 rounded-xl bg-[#f2f3ff] border border-gray-100">
+                                <span class="w-7 h-7 rounded-full bg-[#001e40] text-white flex items-center justify-center font-bold text-xs mb-2">1</span>
+                                <h5 class="text-xs font-bold text-[#001e40]">Dépôt du Dossier</h5>
+                                <p class="text-[11px] text-gray-500 mt-1">Soumission du CV et de la convention de stage.</p>
+                            </div>
+                            <div class="flex flex-col p-4 rounded-xl bg-[#f2f3ff] border border-gray-100">
+                                <span class="w-7 h-7 rounded-full bg-[#0061a7] text-white flex items-center justify-center font-bold text-xs mb-2">2</span>
+                                <h5 class="text-xs font-bold text-[#001e40]">Évaluation DSI</h5>
+                                <p class="text-[11px] text-gray-500 mt-1">Examen technique par les ingénieurs encadrants.</p>
+                            </div>
+                            <div class="flex flex-col p-4 rounded-xl bg-[#f2f3ff] border border-gray-100">
+                                <span class="w-7 h-7 rounded-full bg-[#001e40] text-white flex items-center justify-center font-bold text-xs mb-2">3</span>
+                                <h5 class="text-xs font-bold text-[#001e40]">Entretien Technique</h5>
+                                <p class="text-[11px] text-gray-500 mt-1">Échange visio ou présentiel avec le jury.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Sticky Summary & Apply Box -->
+                <div class="lg:col-span-1 flex flex-col gap-6 sticky top-24">
+
+                    <!-- Fiche Synthétique Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                            <h4 class="text-sm font-bold text-[#001e40]">Fiche Synthétique</h4>
+                            <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold">J-15 restants</span>
+                        </div>
+
+                        <div class="space-y-3 text-xs text-[#43474f] mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Siège :</span>
+                                <span class="font-bold text-[#001e40]">Rabat - Direction DSI</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Encadrement :</span>
+                                <span class="font-bold text-[#001e40]">Ingénieur Chef de Projet</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Type de Stage :</span>
+                                <span class="font-bold text-[#001e40]">@Model.Type (Crédit ECTS)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Date Clôture :</span>
+                                <span class="font-bold text-[#001e40]">@Model.Deadline.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </div>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-controller="Applications" asp-action="Apply" asp-route-offerId="@Model.Id" class="w-full py-3 rounded-xl bg-[#001e40] hover:bg-[#0061a7] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 mb-3">
+                                <span class="material-symbols-outlined text-[16px]">send</span>
+                                <span>Postuler à cette offre</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Details", "Offers", new { id = Model.Id })" class="w-full py-3 rounded-xl bg-[#001e40] hover:bg-[#0061a7] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 mb-3">
+                                <span class="material-symbols-outlined text-[16px]">login</span>
+                                <span>Se connecter pour Postuler</span>
+                            </a>
+                        }
+
+                        <div class="flex gap-2">
+                            <button type="button" class="flex-1 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-[#43474f] font-bold text-xs flex items-center justify-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">picture_as_pdf</span>
+                                <span>Fiche PDF</span>
+                            </button>
+                            <button type="button" class="flex-1 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-[#43474f] font-bold text-xs flex items-center justify-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">share</span>
+                                <span>Partager</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Assistance Stages ONEE Box -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <h4 class="text-sm font-bold text-[#001e40] mb-2">Assistance Stages ONEE</h4>
+                        <p class="text-xs text-gray-500 mb-4 leading-relaxed">
+                            Une interrogation concernant l'admin-toll ? À qui envoyer votre convention ou profil principal ?
+                        </p>
+                        <div class="flex items-center gap-2 text-xs font-bold text-[#0061a7]">
+                            <span class="material-symbols-outlined text-[16px]">mail</span>
+                            <span>stage.dsi@onee.ma</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>

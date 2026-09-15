@@ -1,0 +1,356 @@
+﻿@model IEnumerable<ONEE_Stage.Models.ViewModels.ApplicationViewModel>
+@using ONEE_Stage.Models.Enums
+
+@{
+    ViewData["Title"] = "Gestion des Candidatures - Portail RH";
+    var offer = ViewBag.Offer;
+    int totalCandidates = ViewBag.TotalCandidates ?? 0;
+
+    // Safely get the user's name or fallback to "Équipe RH" so it doesn't look empty
+    var sessionName = string.IsNullOrWhiteSpace(User.Identity?.Name) ? "Équipe RH" : User.Identity.Name;
+}
+
+<div class="flex flex-col w-full bg-[#faf8ff] min-h-screen">
+
+    <!-- Sub-Header / Admin Context Strip -->
+    <div class="w-full bg-[#001e40] text-white shadow-sm border-b border-[#003366]">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 text-[#a7c8ff] text-[11px] font-bold tracking-wide uppercase">
+                <span class="hover:text-white transition-colors cursor-pointer">Portail RH</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="hover:text-white transition-colors cursor-pointer">Campagne PFE 2026</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="hover:text-white transition-colors cursor-pointer">Gestion des Candidatures</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="text-white">Réf: STG-2026-@(offer?.Id ?? "000")</span>
+            </nav>
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#003366] text-[#a7c8ff] text-[10px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#54a7ff] animate-pulse"></span>
+                    Campagne Ouverte • @(offer?.Department ?? "ONEE")
+                </span>
+                <span class="text-[#a7c8ff] text-[11px] font-bold">Session RH: @sessionName</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Operational Canvas -->
+    <div class="w-full max-w-[1280px] mx-auto px-4 md:px-8 py-8 flex flex-col gap-6">
+
+        <!-- Top Navigation & Action Bar -->
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <a asp-controller="Offers" asp-action="Index" class="inline-flex items-center gap-1.5 text-[#0061a7] hover:text-[#001e40] text-sm font-bold transition-colors group">
+                <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+                <span>Retour aux Offres de Stage</span>
+            </a>
+            <div class="flex items-center flex-wrap gap-2">
+                <button class="inline-flex items-center gap-1.5 bg-white text-[#001e40] hover:bg-[#f2f3ff] px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-gray-200 transition-colors @(totalCandidates == 0 ? "opacity-50 pointer-events-none" : "")">
+                    <span class="material-symbols-outlined text-[#0061a7] text-[18px]">table_view</span>
+                    <span>Exporter en Excel / CSV</span>
+                </button>
+                <button class="inline-flex items-center gap-1.5 bg-white text-[#001e40] hover:bg-[#f2f3ff] px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-gray-200 transition-colors @(totalCandidates == 0 ? "opacity-50 pointer-events-none" : "")">
+                    <span class="material-symbols-outlined text-[#0061a7] text-[18px]">picture_as_pdf</span>
+                    <span>Rapport de Sélection (PDF)</span>
+                </button>
+                <button class="inline-flex items-center gap-1.5 bg-[#001e40] hover:bg-[#003366] text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition-colors @(totalCandidates == 0 ? "opacity-50 pointer-events-none" : "")">
+                    <span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
+                    <span>Convocation Groupée</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Offer Detail Banner -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-[#0061a7]"></div>
+
+            <div class="flex flex-col lg:flex-row justify-between gap-4">
+                <div class="flex flex-col gap-1.5 overflow-hidden w-full lg:w-3/4">
+                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                        <span class="px-2.5 py-0.5 rounded text-[#001e40] bg-[#f2f3ff] text-[10px] font-bold uppercase tracking-wider">PFE 2026</span>
+                        <span class="px-2.5 py-0.5 rounded text-[#0061a7] bg-[#eaedff] text-[10px] font-bold uppercase tracking-wider">Branche Électricité & Systèmes</span>
+                        <span class="text-gray-400 text-[11px] font-bold">• Code Référence: STG-2026-@(offer?.Id ?? "000")</span>
+                    </div>
+
+                    <!-- ADDED: break-words and break-all to prevent long strings (gggggg) from breaking layout -->
+                    <h1 class="text-2xl font-bold text-[#001e40] break-words break-all">@(offer?.Title ?? "Titre de l'Offre")</h1>
+
+                    <div class="flex items-center gap-4 flex-wrap text-sm text-[#43474f] mt-1">
+                        <div class="flex items-center gap-1.5 max-w-[300px]">
+                            <span class="material-symbols-outlined text-[#0061a7] text-[18px] shrink-0">domain</span>
+                            <!-- ADDED: truncate and break-all for long department names -->
+                            <span class="truncate break-all">@(offer?.Department ?? "Direction des Systèmes d'Information (DSI)")</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[#0061a7] text-[18px]">location_on</span>
+                            <span>Siège Roches Noires, Casablanca</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[#0061a7] text-[18px]">event</span>
+                            <span>Clôture des candidatures : <strong>@(offer != null ? offer.Deadline.ToString("dd MMMM yyyy") : "30 Avril 2026")</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end gap-2 shrink-0">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#eaedff] text-[#0061a7] text-xs font-bold">
+                        <span class="w-2 h-2 rounded-full bg-[#0061a7]"></span>
+                        Statut: En cours d'instruction
+                    </span>
+                    <span class="text-[11px] font-bold text-gray-400">Dossiers transmis à la commission</span>
+                </div>
+            </div>
+
+            <!-- Quick Specs Row -->
+            <div class="flex items-center gap-3 flex-wrap pt-3 border-t border-gray-100 mt-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#f2f3ff] text-[#001e40] text-[11px] font-bold">
+                    <span class="material-symbols-outlined text-[#0061a7] text-[16px]">schedule</span> Durée : 4 à 6 Mois
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#f2f3ff] text-[#001e40] text-[11px] font-bold">
+                    <span class="material-symbols-outlined text-[#0061a7] text-[16px]">group</span> Postes à pourvoir : @(offer?.AvailablePositions ?? 2) stagiaires
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#f2f3ff] text-[#001e40] text-[11px] font-bold">
+                    <span class="material-symbols-outlined text-[#0061a7] text-[16px]">school</span> Prérequis : Bac+5 Ingénieur d'État
+                </span>
+            </div>
+        </div>
+
+        <!-- KPI Summary Cards (Safely updated for empty states) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Total Candidats</span>
+                    <div class="w-8 h-8 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[18px]">badge</span>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-[#001e40]">@totalCandidates</span>
+                    <span class="text-xs text-gray-500 font-bold">Candidatures</span>
+                </div>
+                <div class="mt-2 text-[11px] font-bold text-[#0061a7] flex items-center gap-1">
+                    @if (totalCandidates > 0)
+                    {
+                        <span class="material-symbols-outlined text-[14px]">trending_up</span> <span>+12 cette semaine</span>
+                    }
+                    else
+                    {
+                        <span class="material-symbols-outlined text-[14px] text-gray-400">horizontal_rule</span> <span class="text-gray-400">Aucune activité</span>
+                    }
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Filière Éligible</span>
+                    <div class="w-8 h-8 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-[#001e40]">@(totalCandidates > 0 ? (int)(totalCandidates * 0.79) : 0)</span>
+                    <span class="text-xs text-gray-500 font-bold">Conformes</span>
+                </div>
+                <div class="mt-2 text-[11px] font-bold text-gray-500">
+                    <span class="text-[#001e40]">@(totalCandidates > 0 ? "79%" : "0%")</span> du pool global
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Score Moyen IA CV</span>
+                    <div class="w-8 h-8 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[18px]">psychology</span>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold @(totalCandidates > 0 ? "text-[#0061a7]" : "text-gray-300")">@(totalCandidates > 0 ? "78.4%" : "N/A")</span>
+                </div>
+                <div class="mt-2 text-[11px] font-bold @(totalCandidates > 0 ? "text-[#0061a7]" : "text-gray-400") flex items-center gap-1">
+                    @if (totalCandidates > 0)
+                    {
+                        <span class="material-symbols-outlined text-[14px]">star</span> <span>14 profils au-dessus de 85%</span>
+                    }
+                    else
+                    {
+                        <span class="material-symbols-outlined text-[14px]">hourglass_empty</span> <span>En attente de profils</span>
+                    }
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Entretiens Planifiés</span>
+                    <div class="w-8 h-8 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[18px]">perm_contact_calendar</span>
+                    </div>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-[#001e40]">@(totalCandidates > 0 ? "6" : "0")</span>
+                    <span class="text-xs text-gray-500 font-bold">Convocations</span>
+                </div>
+                <div class="mt-2 text-[11px] font-bold text-gray-500">
+                    @if (totalCandidates > 0)
+                    {
+                        <span class="text-[#001e40]">2 confirmés</span> <span>• 4 en attente</span>
+                    }
+                    else
+                    {
+                        <span>Aucun entretien planifié</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters & Search Bar -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                <div class="md:col-span-4 relative">
+                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400 text-[20px]">search</span>
+                    <input type="text" placeholder="Rechercher par nom, école, mot-clé technique..." class="w-full h-10 pl-10 pr-3 rounded-lg bg-[#f2f3ff] text-sm focus:bg-white focus:ring-2 focus:ring-[#0061a7] outline-none transition-all @(totalCandidates == 0 ? "opacity-50 cursor-not-allowed" : "")" @(totalCandidates == 0 ? "disabled" : "")>
+                </div>
+                <div class="md:col-span-2">
+                    <select class="w-full h-10 px-3 rounded-lg bg-[#f2f3ff] text-xs font-bold text-[#001e40] outline-none @(totalCandidates == 0 ? "opacity-50 cursor-not-allowed" : "")" @(totalCandidates == 0 ? "disabled" : "")>
+                        <option>Trier : Date Récente</option>
+                        <option>Trier : Score IA Décroissant</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <select class="w-full h-10 px-3 rounded-lg bg-[#f2f3ff] text-xs font-bold text-[#001e40] outline-none @(totalCandidates == 0 ? "opacity-50 cursor-not-allowed" : "")" @(totalCandidates == 0 ? "disabled" : "")>
+                        <option>Filière : Tous les profils</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <select class="w-full h-10 px-3 rounded-lg bg-[#f2f3ff] text-xs font-bold text-[#001e40] outline-none @(totalCandidates == 0 ? "opacity-50 cursor-not-allowed" : "")" @(totalCandidates == 0 ? "disabled" : "")>
+                        <option>Écoles : Tous établissements</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <select class="w-full h-10 px-3 rounded-lg bg-[#f2f3ff] text-xs font-bold text-[#001e40] outline-none @(totalCandidates == 0 ? "opacity-50 cursor-not-allowed" : "")" @(totalCandidates == 0 ? "disabled" : "")>
+                        <option>Statut : Tous</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex items-center flex-wrap gap-2 pt-1">
+                <span class="text-[11px] font-bold text-gray-500 mr-2 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">filter_list</span> Filtres rapides :
+                </span>
+                <button class="px-3 py-1 rounded-full bg-[#001e40] text-white text-[11px] font-bold">Tous (@totalCandidates)</button>
+                <button class="px-3 py-1 rounded-full bg-[#f2f3ff] text-[#001e40] hover:bg-[#eaedff] text-[11px] font-bold transition-colors @(totalCandidates == 0 ? "opacity-50 pointer-events-none" : "")">Score IA ≥ 80%</button>
+                <button class="px-3 py-1 rounded-full bg-[#f2f3ff] text-[#001e40] hover:bg-[#eaedff] text-[11px] font-bold transition-colors @(totalCandidates == 0 ? "opacity-50 pointer-events-none" : "")">En attente de revue RH</button>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-3 bg-[#faf8ff] border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" class="w-4 h-4 rounded text-[#0061a7] focus:ring-[#0061a7] cursor-pointer" @(totalCandidates == 0 ? "disabled" : "")>
+                    <span class="text-xs font-bold text-[#001e40]">Sélectionner les candidats affichés</span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] font-bold text-gray-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#0061a7]"></span> IA Recrutement ONEE v3.2 Active • Dernière Indexation : Aujourd'hui
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-16">
+                    <span class="material-symbols-outlined text-gray-200 text-5xl mb-2">group_off</span>
+                    <h4 class="text-sm font-bold text-[#001e40]">Aucune candidature trouvée</h4>
+                </div>
+            }
+            else
+            {
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left whitespace-nowrap">
+                        <thead>
+                            <tr class="bg-white text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+                                <th class="py-4 px-6 w-10"></th>
+                                <th class="py-4 px-4">Candidat & Établissement</th>
+                                <th class="py-4 px-4">Université / Filière</th>
+                                <th class="py-4 px-4">Éligibilité</th>
+                                <th class="py-4 px-4">Statut Actuel</th>
+                                <th class="py-4 px-4">Dépôt</th>
+                                <th class="py-4 px-6 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            @foreach (var app in Model)
+                            {
+                                <tr class="hover:bg-[#faf8ff] transition-colors group">
+                                    <td class="py-4 px-6">
+                                        <input type="checkbox" class="w-4 h-4 rounded text-[#0061a7] focus:ring-[#0061a7] cursor-pointer">
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-9 h-9 rounded-full bg-[#001e40] text-white flex items-center justify-center font-bold text-xs shrink-0">
+                                                @(app.StudentFullName.Length >= 2 ? app.StudentFullName.Substring(0, 2).ToUpper() : "ST")
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <div class="flex items-center gap-1">
+                                                    <span class="font-bold text-sm text-[#001e40]">@app.StudentFullName</span>
+                                                    <span class="material-symbols-outlined text-[#0061a7] text-[14px]">verified</span>
+                                                </div>
+                                                <span class="text-[11px] text-gray-500">@app.StudentEmail</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-xs text-[#001e40]">@app.University</span>
+                                            <span class="text-[11px] text-gray-400">Ingénierie & Sciences</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#eaedff] text-[#0061a7] text-[10px] font-bold border border-[#cce5ff]">
+                                            <span class="material-symbols-outlined text-[12px]">check_circle</span> Conforme (Cible)
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider
+                                            @(app.Status == ApplicationStatus.Accepted ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
+                                              app.Status == ApplicationStatus.Rejected ? "bg-red-50 text-red-700" : "bg-blue-50 text-blue-700")">
+                                            @app.Status
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-[#43474f]">@app.CreatedAt.ToString("dd MMM yyyy")</span>
+                                            <span class="text-[10px] text-gray-400">@app.CreatedAt.ToString("HH:mm")</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            @if (app.CvDocumentId.HasValue)
+                                            {
+                                                <a asp-controller="Documents" asp-action="Preview" asp-route-id="@app.CvDocumentId" target="_blank" class="p-1.5 rounded-lg text-[#0061a7] hover:bg-[#eaedff] transition-colors" title="Voir le CV">
+                                                    <span class="material-symbols-outlined text-[18px]">description</span>
+                                                </a>
+                                            }
+                                            <a asp-action="Details" asp-route-id="@app.Id" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#001e40] hover:bg-[#003366] text-white text-[11px] font-bold transition-colors shadow-sm">
+                                                <span class="material-symbols-outlined text-[14px]">calendar_add_on</span> Convoquer
+                                            </a>
+                                            <button class="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" title="Refuser">
+                                                <span class="material-symbols-outlined text-[18px]">close</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <div class="px-6 py-4 bg-[#faf8ff] border-t border-gray-100 flex items-center justify-between text-xs font-bold text-gray-500">
+                <span>Affichage de 1 à @Model.Count() sur @totalCandidates candidatures</span>
+                <div class="flex items-center gap-1">
+                    <button class="w-7 h-7 rounded bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 text-gray-400 disabled:opacity-50"><span class="material-symbols-outlined text-[16px]">chevron_left</span></button>
+                    <button class="w-7 h-7 rounded bg-[#001e40] text-white flex items-center justify-center shadow-sm">1</button>
+                    <button class="w-7 h-7 rounded bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 text-[#001e40]">2</button>
+                    <button class="w-7 h-7 rounded bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 text-gray-400"><span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

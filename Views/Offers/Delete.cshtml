@@ -1,0 +1,53 @@
+@model ONEE_Stage.Models.ViewModels.OfferViewModel
+
+@{
+    ViewData["Title"] = "Delete Offer";
+}
+
+<h1>Delete</h1>
+<h3>Are you sure you want to delete this?</h3>
+
+<div>
+    <h4>Offer</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Title)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Department)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Department)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Specialization)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Specialization)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Type)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Type)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.WorkMode)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.WorkMode)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.WorkPace)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.WorkPace)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Status)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Status)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Periode)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Periode)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.AvailablePositions)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.AvailablePositions)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Deadline)</dt>
+        <dd class="col-sm-9">@Model.Deadline.ToString("yyyy-MM-dd")</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

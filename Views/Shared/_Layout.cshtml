@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ONEE Internship Portal</title>
+
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#001e40",
+                            "secondary": "#0061a7",
+                            "background": "#faf8ff"
+                        }
+                    }
+                }
+            }
+    </script>
+</head>
+<body class="bg-[#faf8ff] text-[#131b2e] font-sans antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="h-20 max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a class="flex items-center gap-3" asp-controller="Offers" asp-action="Index">
+                    <span class="font-bold text-xl text-[#001e40]">ONEE</span>
+                    <div class="flex flex-col">
+                        <span class="text-xs text-[#0061a7] uppercase tracking-wider font-bold">
+                            @(User.IsInRole("Admin") || User.IsInRole("HRManager") || User.IsInRole("Supervisor") ? "Internal Staff Portal" : "Internship Portal")
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Header Right Section -->
+            <div class="flex items-center gap-3">
+                <!-- Language Switcher -->
+                <div class="flex items-center bg-[#f2f3ff] rounded-lg p-0.5 text-[#43474f] text-xs font-bold mr-2">
+                    <a href="?culture=en" class="px-2 py-1 rounded bg-white text-[#001e40] shadow-xs">EN</a>
+                    <a href="?culture=fr" class="px-2 py-1 rounded hover:text-[#001e40] transition-colors">FR</a>
+                </div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <!-- Profile Drawer Trigger Button -->
+                    <button id="profileDrawerBtn" type="button" class="flex items-center gap-2 bg-[#f2f3ff] hover:bg-[#eaedff] px-3.5 py-2 rounded-xl border border-gray-200 transition-colors cursor-pointer group">
+                        <span class="material-symbols-outlined text-[20px] text-[#0061a7] group-hover:scale-110 transition-transform">account_circle</span>
+                        <div class="flex flex-col text-left">
+                            <span class="text-xs font-bold text-[#001e40]">@User.Identity.Name</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-[#0061a7]">
+                                @(User.IsInRole("Admin") ? "System Admin" : User.IsInRole("HRManager") ? "HR Manager" : User.IsInRole("Supervisor") ? "Supervisor" : "Student")
+                            </span>
+                        </div>
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 ml-1">menu</span>
+                    </button>
+                }
+                else
+                {
+                    <a class="inline-flex items-center gap-2 bg-[#003366] hover:bg-[#001e40] text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors shadow-sm" asp-controller="Account" asp-action="Login">
+                        <span class="material-symbols-outlined text-[18px]">lock</span>
+                        <span>Sign In</span>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <!-- Employee Workspace Active Banner -->
+        @if (User.IsInRole("Admin") || User.IsInRole("HRManager") || User.IsInRole("Supervisor"))
+        {
+            <div class="bg-[#001e40] text-white px-4 py-1.5 text-center text-xs font-bold flex items-center justify-center gap-2 border-t border-blue-900 shadow-inner">
+                <span class="material-symbols-outlined text-[16px] text-amber-400">admin_panel_settings</span>
+                <span>
+                    Employee Workspace Active — Authenticated as
+                    <span class="underline text-amber-300">
+                        @(User.IsInRole("Admin") ? "System Administrator" : User.IsInRole("HRManager") ? "HR Manager" : "Supervisor")
+                    </span>
+                </span>
+            </div>
+        }
+    </header>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <!-- Right Slide-Over Backdrop -->
+        <div id="drawerOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+        <!-- Right Side Navigation Drawer -->
+        <aside id="profileDrawer" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
+
+            <!-- Drawer Header -->
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between bg-[#faf8ff]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-[#eaedff] text-[#0061a7] flex items-center justify-center font-bold">
+                        <span class="material-symbols-outlined text-[24px]">person</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-[#001e40]">@User.Identity.Name</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#f2f3ff] text-[#0061a7] inline-block mt-0.5">
+                            @(User.IsInRole("Admin") ? "System Admin" : User.IsInRole("HRManager") ? "HR Manager" : User.IsInRole("Supervisor") ? "Supervisor" : "Student")
+                        </span>
+                    </div>
+                </div>
+                <button id="closeDrawerBtn" type="button" class="p-1 rounded-lg text-gray-400 hover:text-[#001e40] hover:bg-gray-100 transition-colors">
+                    <span class="material-symbols-outlined text-[22px]">close</span>
+                </button>
+            </div>
+
+            <!-- Role-Based Navigation Links -->
+            <div class="p-6 space-y-2 flex-1 overflow-y-auto">
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">Navigation Menu</p>
+
+                <!-- Public / Student Catalog -->
+                <a asp-controller="Offers" asp-action="Index" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-[#43474f] hover:text-[#001e40] hover:bg-[#eaedff] transition-colors">
+                    <span class="material-symbols-outlined text-[20px] text-[#0061a7]">work</span>
+                    <span>Offers Catalog</span>
+                </a>
+
+                @if (User.IsInRole("Student"))
+                {
+                    <a asp-controller="Applications" asp-action="MyApplications" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-[#43474f] hover:text-[#001e40] hover:bg-[#eaedff] transition-colors">
+                        <span class="material-symbols-outlined text-[20px] text-[#0061a7]">dashboard</span>
+                        <span>My Candidate Dashboard</span>
+                    </a>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("HRManager") || User.IsInRole("Supervisor"))
+                {
+                    <!-- Review Portal / Applications Dashboard -->
+                    <a asp-controller="Admin" asp-action="Applications" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-[#43474f] hover:text-[#001e40] hover:bg-[#eaedff] transition-colors">
+                        <span class="material-symbols-outlined text-[20px] text-[#0061a7]">folder_shared</span>
+                        <span>Review Portal</span>
+                    </a>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("HRManager"))
+                {
+                    <div class="pt-4 border-t border-gray-100 my-2">
+                        <p class="text-[11px] font-bold text-[#0061a7] uppercase tracking-wider mb-2">Management Tasks</p>
+
+                        <!-- Offer Creation -->
+                        <a asp-controller="Offers" asp-action="Create" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-[#0061a7] bg-[#eaedff]/60 hover:bg-[#eaedff] transition-colors">
+                            <span class="material-symbols-outlined text-[20px] text-[#0061a7]">add_box</span>
+                            <span>Create New Offer</span>
+                        </a>
+                    </div>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Admin" asp-action="RegisterHRManager" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-amber-800 bg-amber-50/60 hover:bg-amber-100 transition-colors mt-2">
+                        <span class="material-symbols-outlined text-[20px] text-amber-700">person_add</span>
+                        <span>Create HR Manager</span>
+                    </a>
+                }
+
+                @if (User.IsInRole("HRManager") || User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Admin" asp-action="RegisterSupervisor" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold text-sm text-blue-800 bg-blue-50/60 hover:bg-blue-100 transition-colors mt-2">
+                        <span class="material-symbols-outlined text-[20px] text-[#0061a7]">supervisor_account</span>
+                        <span>Create Supervisor</span>
+                    </a>
+                }
+            </div>
+
+            <!-- Drawer Footer (Logout Button Inside) -->
+            <div class="p-6 border-t border-gray-100 bg-[#faf8ff]">
+                <form asp-controller="Account" asp-action="Logout" method="post" class="w-full">
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border border-red-200 transition-colors flex items-center justify-center gap-2 shadow-xs">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                        <span>Sign Out Account</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+    }
+
+    <!-- Toast Notifications -->
+    @if (TempData["SuccessMessage"] != null || TempData["Success"] != null)
+    {
+        <div class="fixed top-28 right-5 z-50 bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-lg font-semibold text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px]">check_circle</span>
+            <span>@(TempData["SuccessMessage"] ?? TempData["Success"])</span>
+        </div>
+    }
+
+    <!-- Main Content Body -->
+    <main role="main" class="w-full @(User.IsInRole("Admin") || User.IsInRole("HRManager") || User.IsInRole("Supervisor") ? "pt-28" : "pt-20") bg-[#faf8ff] min-h-screen">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-[#003366] text-white mt-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-200">
+                <span>© 2026 Office National de l'Électricité et de l'Eau Potable (ONEE). All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Drawer Handler -->
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const drawerBtn = document.getElementById('profileDrawerBtn');
+                const closeBtn = document.getElementById('closeDrawerBtn');
+                const drawer = document.getElementById('profileDrawer');
+                const overlay = document.getElementById('drawerOverlay');
+
+                if (drawerBtn && drawer && overlay) {
+                    const openDrawer = () => {
+                        drawer.classList.remove('translate-x-full');
+                        overlay.classList.remove('opacity-0', 'pointer-events-none');
+                    };
+
+                    const closeDrawer = () => {
+                        drawer.classList.add('translate-x-full');
+                        overlay.classList.add('opacity-0', 'pointer-events-none');
+                    };
+
+                    drawerBtn.addEventListener('click', openDrawer);
+                    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+                    overlay.addEventListener('click', closeDrawer);
+                }
+            });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ONEE_Stage.Models.Entities.User>
+
+@{
+    ViewData["Title"] = "Tableau de Bord Administrateur";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestion du Personnel ONEE</h2>
+        <a asp-action="CreateHR" class="btn btn-primary">+ Ajouter un Responsable RH / Encadrant</a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nom & Prénom</th>
+                        <th>Email (@@onee.ma)</th>
+                        <th>Rôle</th>
+                        <th>Statut</th>
+                        <th>Date de Création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.FirstName @user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>
+                                <span class="badge bg-@(user.Role == UserRole.HRManager ? "info" : "secondary")">
+                                    @user.Role
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge bg-@(user.IsActive ? "success" : "danger")">
+                                    @(user.IsActive ? "Actif" : "Inactif")
+                                </span>
+                            </td>
+                            <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿@model IEnumerable<ONEE_Stage.Models.ViewModels.ApplicationViewModel>
+@using ONEE_Stage.Models.Enums
+
+@{
+    ViewData["Title"] = "Gestion des Candidatures - Portail RH ONEE";
+}
+
+<div class="flex flex-col w-full bg-background min-h-screen">
+    <!-- Sub-Header / Admin Context Strip -->
+    <div class="w-full bg-primary text-on-primary shadow-sm">
+        <div class="max-w-layout-max-width mx-auto px-margin-mobile md:px-margin-desktop py-space-sm flex flex-col md:flex-row md:items-center justify-between gap-space-xs">
+            <!-- Breadcrumbs -->
+            <nav aria-label="Fil d'Ariane" class="flex items-center gap-space-xs text-surface-container-high font-label-md text-label-md">
+                <span class="hover:text-secondary-container transition-colors cursor-pointer">Portail RH</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="hover:text-secondary-container transition-colors cursor-pointer">Campagne PFE 2025</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="text-secondary-fixed font-bold">Gestion des Candidatures</span>
+            </nav>
+            <!-- System Tag & Switch -->
+            <div class="flex items-center gap-space-sm">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-container text-secondary-fixed text-label-sm font-label-sm">
+                    <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+                    Campagne Ouverte • Espace RH
+                </span>
+                <span class="text-surface-variant font-label-sm text-label-sm">Connecté en tant que: @User.Identity?.Name</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Operational Canvas -->
+    <div class="w-full max-w-layout-max-width mx-auto px-margin-mobile md:px-margin-desktop py-space-xl flex flex-col gap-space-xl">
+
+        <!-- Top Bar & Header Section -->
+        <div class="flex flex-col gap-space-lg">
+            <div class="flex items-center justify-between flex-wrap gap-space-sm">
+                <a asp-controller="Offers" asp-action="Index" class="inline-flex items-center gap-space-xs text-secondary hover:text-primary font-label-lg text-label-lg transition-colors group">
+                    <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+                    <span>Retour aux Offres de Stage</span>
+                </a>
+
+                <!-- Top Action Bar -->
+                <div class="flex items-center flex-wrap gap-space-xs">
+                    <button class="inline-flex items-center gap-space-xs bg-surface-container-lowest text-primary hover:bg-surface-container-low px-space-md py-space-xs rounded-lg font-label-lg text-label-lg shadow-sm transition-colors" type="button">
+                        <span class="material-symbols-outlined text-secondary text-[18px]">table_view</span>
+                        <span>Exporter en Excel / CSV</span>
+                    </button>
+                    <button class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-lg font-label-lg text-label-lg shadow-sm transition-colors" type="button">
+                        <span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
+                        <span>Convocation Groupée</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banner Header -->
+            <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+                    <div class="flex flex-col gap-space-2xs">
+                        <div class="flex items-center gap-space-xs flex-wrap">
+                            <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase">PFE 2025</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">Espace de Suivi RH</span>
+                        </div>
+                        <h1 class="font-headline-md text-headline-md text-primary mt-1">
+                            Portail de Validation des Candidatures Stagiaires
+                        </h1>
+                        <p class="text-on-surface-variant font-body-md text-body-md flex items-center gap-space-xs flex-wrap">
+                            <span class="material-symbols-outlined text-[18px] text-secondary">domain</span>
+                            <span>Direction des Ressources Humaines &amp; Systèmes d'Information</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Candidates Data Table Container -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+            <div class="px-space-lg py-space-sm bg-surface-container-low flex items-center justify-between flex-wrap gap-space-xs">
+                <div class="flex items-center gap-space-xs">
+                    <span class="font-label-md text-label-md text-on-surface">
+                        Liste complète des dossiers reçus pour cette session
+                    </span>
+                </div>
+                <div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+                    <span class="inline-flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-secondary"></span> Module d'Évaluation RH Actif
+                    </span>
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-16">
+                    <span class="material-symbols-outlined text-gray-300 text-5xl mb-2">inbox</span>
+                    <h4 class="text-base font-bold text-[#001e40]">Aucune candidature trouvée</h4>
+                    <p class="text-xs text-gray-500 mt-1">Il n'y a pas encore de dossiers soumis pour cet espace.</p>
+                </div>
+            }
+            else
+            {
+                <!-- Responsive Table Area -->
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left min-w-[1050px]">
+                        <thead>
+                            <tr class="bg-surface-container-low/50 text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+                                <th class="py-space-sm px-space-md">Candidat &amp; Établissement</th>
+                                <th class="py-space-sm px-space-md">Offre &amp; Département</th>
+                                <th class="py-space-sm px-space-md">Date Soumission</th>
+                                <th class="py-space-sm px-space-md">Statut Actuel</th>
+                                <th class="py-space-sm px-space-md text-right">Actions Décisionnelles</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-surface-container-low font-body-md text-body-md text-on-surface">
+                            @foreach (var app in Model)
+                            {
+                                <tr class="hover:bg-surface-container-low/60 transition-colors group">
+                                    <td class="py-space-md px-space-md">
+                                        <div class="flex items-center gap-space-sm">
+                                            <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md shrink-0">
+                                                @(app.StudentFullName.Length >= 2 ? app.StudentFullName.Substring(0, 2).ToUpper() : "ST")
+                                            </div>
+                                            <div class="flex flex-col min-w-0">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="font-title-md text-title-md text-primary font-bold">@app.StudentFullName</span>
+                                                    <span class="material-symbols-outlined text-secondary text-[16px]" title="Candidat enregistré">verified</span>
+                                                </div>
+                                                <span class="text-on-surface-variant font-body-sm text-body-sm truncate">@app.StudentEmail • @app.University</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-space-md px-space-md">
+                                        <div class="flex flex-col">
+                                            <span class="font-semibold text-primary">@app.OfferTitle</span>
+                                            <span class="text-outline font-body-sm text-body-sm">@app.Department</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-space-md px-space-md whitespace-nowrap">
+                                        <div class="flex flex-col text-on-surface-variant font-body-sm text-body-sm">
+                                            <span>@app.CreatedAt.ToString("dd MMM yyyy")</span>
+                                            <span class="text-outline font-label-sm text-label-sm">@app.CreatedAt.ToString("HH:mm")</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-space-md px-space-md">
+                                        <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider
+                                            @(app.Status == ApplicationStatus.Accepted ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
+                                              app.Status == ApplicationStatus.Rejected ? "bg-red-50 text-red-700" : "bg-blue-50 text-blue-700")">
+                                            @app.Status
+                                        </span>
+                                    </td>
+                                    <td class="py-space-md px-space-md text-right">
+                                        <div class="flex items-center justify-end gap-1.5">
+                                            <a asp-controller="Applications" asp-action="Details" asp-route-id="@app.Id" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm transition-colors shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                                <span>Examiner le Dossier</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

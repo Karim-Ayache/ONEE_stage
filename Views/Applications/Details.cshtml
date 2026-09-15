@@ -1,0 +1,217 @@
+﻿@model ONEE_Stage.Models.ViewModels.ApplicationViewModel
+@using ONEE_Stage.Models.Enums
+
+@{
+    ViewData["Title"] = "Détails de la Candidature";
+}
+
+<div class="flex flex-col w-full bg-[#faf8ff] min-h-screen pb-12">
+
+    <!-- Sub-Header / Breadcrumb -->
+    <div class="w-full bg-[#001e40] text-white shadow-sm border-b border-[#003366]">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-3 flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 text-[#a7c8ff] text-[11px] font-bold tracking-wide uppercase">
+                <span class="hover:text-white transition-colors cursor-pointer">Portail RH</span>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <a asp-action="Index" asp-route-offerId="@Model.OfferId" class="hover:text-white transition-colors cursor-pointer">Candidatures</a>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="text-white truncate">Dossier #@Model.Id</span>
+            </nav>
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#003366] text-[#a7c8ff] text-[10px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#54a7ff] animate-pulse"></span>
+                    Évaluation en cours
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-8 w-full">
+
+        <!-- Action Bar -->
+        <div class="flex items-center justify-between mb-6">
+            <a asp-action="Index" asp-route-offerId="@Model.OfferId" class="inline-flex items-center gap-1.5 text-[#0061a7] hover:text-[#001e40] text-sm font-bold transition-colors group">
+                <span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+                <span>Retour à la liste</span>
+            </a>
+
+            <!-- Current Status Badge -->
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Statut Actuel :</span>
+                <span class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider
+                    @(Model.Status == ApplicationStatus.Accepted ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
+                      Model.Status == ApplicationStatus.Rejected ? "bg-red-50 text-red-700 border border-red-200" :
+                      "bg-amber-50 text-amber-700 border border-amber-200")">
+                    @Model.Status
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+            <!-- LEFT COLUMN: Candidate & Application Info -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+
+                <!-- 1. Candidate Profile Card -->
+                <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 left-0 bottom-0 w-1.5 bg-[#001e40]"></div>
+
+                    <div class="flex items-center gap-2 mb-4 pl-2">
+                        <span class="material-symbols-outlined text-[#0061a7] text-[22px]">person</span>
+                        <h2 class="text-lg font-bold text-[#001e40]">Informations Candidat</h2>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-6 items-start pl-2">
+                        <!-- Avatar -->
+                        <div class="w-20 h-20 rounded-full bg-[#f2f3ff] border-2 border-[#eaedff] text-[#0061a7] flex items-center justify-center font-bold text-2xl shrink-0 shadow-sm">
+                            @(Model.StudentFullName?.Length >= 2 ? Model.StudentFullName.Substring(0, 2).ToUpper() : "ST")
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                            <div class="flex flex-col">
+                                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Nom Complet</span>
+                                <span class="text-base font-bold text-[#001e40] break-words">@Model.StudentFullName</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Email</span>
+                                <a href="mailto:@Model.StudentEmail" class="text-sm font-bold text-[#0061a7] hover:underline break-words">@Model.StudentEmail</a>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Université</span>
+                                <span class="text-sm font-bold text-[#131b2e] break-words uppercase">@Model.University</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Date Soumission</span>
+                                <div class="flex items-center gap-1.5 text-sm font-bold text-[#131b2e]">
+                                    <span class="material-symbols-outlined text-[16px] text-[#0061a7]">event_available</span>
+                                    @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Target Offer Card -->
+                <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-[#eaedff]"></div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-[#0061a7] text-[22px]">work</span>
+                        <h2 class="text-lg font-bold text-[#001e40]">Détails de l'Offre</h2>
+                    </div>
+
+                    <div class="bg-[#f2f3ff] rounded-lg p-4 flex flex-col gap-3">
+                        <div class="flex flex-col">
+                            <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Intitulé</span>
+                            <span class="text-base font-bold text-[#001e40] break-words">@Model.OfferTitle</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[#0061a7] text-[18px]">domain</span>
+                            <span class="text-sm font-bold text-[#43474f] break-words">Département: @Model.Department</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Documents Card -->
+                <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex items-center gap-2 mb-5">
+                        <span class="material-symbols-outlined text-[#0061a7] text-[22px]">folder_open</span>
+                        <h2 class="text-lg font-bold text-[#001e40]">Documents Joints</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- CV -->
+                        <div class="flex flex-col p-4 rounded-lg border border-gray-200 hover:border-[#0061a7] transition-colors group bg-white">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center group-hover:bg-[#0061a7] group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">description</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-[#001e40] text-sm">Curriculum Vitae (CV)</span>
+                                    <span class="text-[11px] text-gray-400 font-bold uppercase">Format PDF</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 mt-auto pt-2 border-t border-gray-100">
+                                @if (Model.CvDocumentId.HasValue && Model.CvDocumentId.Value > 0)
+                                {
+                                    <a asp-controller="Documents" asp-action="Preview" asp-route-id="@Model.CvDocumentId" target="_blank" class="flex-1 text-center py-1.5 rounded bg-[#f2f3ff] hover:bg-[#eaedff] text-[#0061a7] text-xs font-bold transition-colors border border-[#cce5ff]">Aperçu PDF</a>
+                                    <a asp-controller="Documents" asp-action="Download" asp-route-id="@Model.CvDocumentId" class="flex-1 text-center py-1.5 rounded bg-[#001e40] hover:bg-[#003366] text-white text-xs font-bold transition-colors shadow-sm">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <span class="text-xs text-red-500 font-bold py-1.5 w-full text-center">Aucun CV n'a été fourni.</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Lettre de motivation -->
+                        <div class="flex flex-col p-4 rounded-lg border border-gray-200 hover:border-[#0061a7] transition-colors group bg-white">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded bg-[#eaedff] text-[#0061a7] flex items-center justify-center group-hover:bg-[#0061a7] group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">mark_email_read</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-[#001e40] text-sm">Lettre de Motivation</span>
+                                    <span class="text-[11px] text-gray-400 font-bold uppercase">Optionnel</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 mt-auto pt-2 border-t border-gray-100">
+                                @if (Model.CoverLetterDocumentId.HasValue && Model.CoverLetterDocumentId.Value > 0)
+                                {
+                                    <a asp-controller="Documents" asp-action="Preview" asp-route-id="@Model.CoverLetterDocumentId" target="_blank" class="flex-1 text-center py-1.5 rounded bg-[#f2f3ff] hover:bg-[#eaedff] text-[#0061a7] text-xs font-bold transition-colors border border-[#cce5ff]">Aperçu PDF</a>
+                                    <a asp-controller="Documents" asp-action="Download" asp-route-id="@Model.CoverLetterDocumentId" class="flex-1 text-center py-1.5 rounded bg-gray-500 hover:bg-gray-600 text-white text-xs font-bold transition-colors shadow-sm">Télécharger</a>
+                                }
+                                else
+                                {
+                                    <span class="text-xs text-gray-400 font-bold py-1.5 text-center w-full bg-gray-50 rounded">Aucune lettre fournie.</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT COLUMN: Status Management -->
+            <aside class="lg:col-span-1">
+                <!-- FORM FROM YOUR OG CODE -->
+                <form asp-action="UpdateStatus" method="post" class="bg-white p-6 rounded-xl shadow-sm border border-[#cce5ff] sticky top-6">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-[#0061a7] text-[22px]">rule_settings</span>
+                        <h3 class="text-lg font-bold text-[#001e40]">Mettre à jour le Statut</h3>
+                    </div>
+
+                    <p class="text-xs text-[#43474f] leading-relaxed mb-5">
+                        Sélectionnez la décision finale pour ce candidat. Assurez-vous d'enregistrer les modifications.
+                    </p>
+
+                    <div class="flex flex-col gap-2 mb-6">
+                        <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                            Nouvelle Décision <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#0061a7] text-[18px] pointer-events-none">swap_horiz</span>
+                            <select name="status" asp-items="Html.GetEnumSelectList<ApplicationStatus>()" class="w-full h-11 pl-10 pr-8 rounded-lg bg-[#f2f3ff] text-sm font-bold text-[#001e40] appearance-none focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0061a7] border border-transparent focus:border-[#0061a7] transition-all cursor-pointer">
+                            </select>
+                            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">arrow_drop_down</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">save</span>
+                        Enregistrer le statut
+                    </button>
+
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-start gap-2">
+                        <span class="material-symbols-outlined text-amber-500 text-[16px]">info</span>
+                        <p class="text-[10px] text-gray-400 font-bold leading-tight">
+                            Assurez-vous que l'évaluation du dossier (CV et éventuelle lettre de motivation) est complète avant de modifier le statut.
+                        </p>
+                    </div>
+                </form>
+            </aside>
+        </div>
+    </div>
+</div>
