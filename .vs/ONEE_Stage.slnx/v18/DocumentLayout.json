@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\views\\student\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:views\\student\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,19 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{c6f34f0d-7ae5-4f3a-be61-fe0c21ae9eb8}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Student\\Profile.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Student\\Profile.cshtml",
+              "RelativeToolTip": "Views\\Student\\Profile.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-16T14:16:30.673Z",
+              "EditorCaption": ""
             }
           ]
         }

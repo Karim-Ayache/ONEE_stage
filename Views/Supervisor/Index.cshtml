@@ -1,0 +1,103 @@
+﻿@model IEnumerable<ONEE_Stage.Models.Entities.Application>
+
+@{
+    ViewData["Title"] = "Espace Encadrant - Suivi des Stagiaires";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 class="fw-bold text-primary"><i class="fas fa-chalkboard-teacher me-2"></i>Espace Encadrant</h2>
+            <p class="text-muted">Gérez et suivez l'avancement des stagiaires qui vous sont assignés au sein de l'ONEE.</p>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Candidatures / Stagiaires</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assigned Interns Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-white">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Candidatures et Stagiaires</h6>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> Aucune candidature n'est actuellement enregistrée.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Stagiaire</th>
+                                <th>Offre / Sujet</th>
+                                <th>Filière</th>
+                                <th>Score IA (CV)</th>
+                                <th>Statut</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold">@item.Student?.FirstName @item.Student?.LastName</div>
+                                        <small class="text-muted">@item.Student?.Email</small>
+                                    </td>
+                                    <td>@item.Offer?.Title</td>
+                                    <td><span class="badge bg-secondary">@item.Student?.University</span></td>
+                                    <td>
+                                        @if (item.AIScore != null)
+                                        {
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: @item.AIScore.OverallScore%;" aria-valuenow="@item.AIScore.OverallScore" aria-valuemin="0" aria-valuemax="100">
+                                                    @item.AIScore.OverallScore %
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">N/A</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info text-dark">@item.Status</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-1" title="Consulter le dossier">
+                                            <i class="fas fa-eye"></i> Dossier
+                                        </a>
+                                        <a asp-action="Evaluate" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success" title="Soumettre l'évaluation">
+                                            <i class="fas fa-star"></i> Évaluer
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -352,3 +352,4 @@ C:\Users\ayach\source\repos\ONEE_Stage\obj\Debug\net10.0\ONEE_Stage.Resources.Sh
 C:\Users\ayach\source\repos\ONEE_Stage\obj\Debug\net10.0\ONEE_Stage.Resources.SharedResource.fr.resources
 C:\Users\ayach\source\repos\ONEE_Stage\obj\Debug\net10.0\en\ONEE_Stage.resources.dll
 C:\Users\ayach\source\repos\ONEE_Stage\obj\Debug\net10.0\fr\ONEE_Stage.resources.dll
+C:\Users\ayach\source\repos\ONEE_Stage\obj\Debug\net10.0\ONEE_Stage.sourcelink.json

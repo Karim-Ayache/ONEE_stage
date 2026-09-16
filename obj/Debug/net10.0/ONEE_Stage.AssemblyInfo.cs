@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ONEE_Stage")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e06aa78ce07f3e1ba579a9612b1c8ecab29b68b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ONEE_Stage")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ONEE_Stage")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

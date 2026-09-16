@@ -1,0 +1,250 @@
+﻿@model ONEE_Stage.Models.ViewModels.RegisterSupervisorViewModel
+
+@{
+    ViewData["Title"] = "Provision Supervisor - ONEE Portal";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-80px)] bg-[#faf8ff] py-12 px-4">
+    <div class="max-w-xl w-full bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-bold text-xs uppercase tracking-wider">
+                Administration Workspace
+            </span>
+
+            <h1 class="text-2xl md:text-3xl font-bold text-[#001e40] mt-3">
+                Créer un compte Encadrant
+            </h1>
+
+            <p class="text-xs text-gray-500 mt-1">
+                Créer un compte encadrant avec accès institutionnel.
+            </p>
+        </div>
+
+        <form asp-action="RegisterSupervisor" method="post" class="space-y-4">
+
+            <div asp-validation-summary="All"
+                 class="text-xs font-bold text-red-600 bg-red-50 p-3 rounded-xl border border-red-100">
+            </div>
+
+            <!-- Role -->
+            <div>
+                <label class="block text-xs font-bold text-[#001e40] mb-1.5">
+                    Type de Personnel
+                </label>
+
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                        badge
+                    </span>
+
+                    <select disabled
+                            class="w-full pl-9 pr-3 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl text-[#001e40] font-semibold cursor-not-allowed">
+                        <option>Encadrant (Supervisor)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- First & Last Name -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div>
+                    <label asp-for="FirstName"
+                           class="block text-xs font-bold text-[#001e40] mb-1.5">
+                        Prénom
+                    </label>
+
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                            person
+                        </span>
+
+                        <input asp-for="FirstName"
+                               class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                               placeholder="Mohammed" />
+                    </div>
+
+                    <span asp-validation-for="FirstName"
+                          class="text-[11px] text-red-500 mt-1 block">
+                    </span>
+                </div>
+
+                <div>
+                    <label asp-for="LastName"
+                           class="block text-xs font-bold text-[#001e40] mb-1.5">
+                        Nom
+                    </label>
+
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                            person
+                        </span>
+
+                        <input asp-for="LastName"
+                               class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                               placeholder="Alami" />
+                    </div>
+
+                    <span asp-validation-for="LastName"
+                          class="text-[11px] text-red-500 mt-1 block">
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div>
+                    <label asp-for="Email"
+                           class="block text-xs font-bold text-[#001e40] mb-1.5 flex items-center justify-between">
+                        <span>Email Professionnel</span>
+                        <span class="text-[10px] text-[#0061a7] font-semibold">
+                            @@onee.ma
+                        </span>
+                    </label>
+
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                            mail
+                        </span>
+
+                        <input asp-for="Email"
+                               class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                               placeholder="m.alami@@onee.ma" />
+                    </div>
+
+                    <span asp-validation-for="Email"
+                          class="text-[11px] text-red-500 mt-1 block">
+                    </span>
+                </div>
+
+                <div>
+                    <label asp-for="Phone"
+                           class="block text-xs font-bold text-[#001e40] mb-1.5">
+                        Téléphone Professionnel
+                    </label>
+
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                            call
+                        </span>
+
+                        <input asp-for="Phone"
+                               class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                               placeholder="+212 5 22 00 00 00" />
+                    </div>
+
+                    <span asp-validation-for="Phone"
+                          class="text-[11px] text-red-500 mt-1 block">
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Department -->
+            <div>
+                <label asp-for="Department"
+                       class="block text-xs font-bold text-[#001e40] mb-1.5">
+                    Département
+                </label>
+
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                        business
+                    </span>
+
+                    <input asp-for="Department"
+                           class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                           placeholder="Direction des Systèmes d'Information" />
+                </div>
+
+                <span asp-validation-for="Department"
+                      class="text-[11px] text-red-500 mt-1 block">
+                </span>
+            </div>
+
+            <!-- Specialization / Pôle -->
+            <div>
+                <label asp-for="Specialization"
+                       class="block text-xs font-bold text-[#001e40] mb-1.5">
+                    Spécialisation / Pôle
+                </label>
+
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                        account_tree
+                    </span>
+
+                    <input asp-for="Specialization"
+                           class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                           placeholder="Pôle Production / Réseaux / Électricité..." />
+                </div>
+
+                <span asp-validation-for="Specialization"
+                      class="text-[11px] text-red-500 mt-1 block">
+                </span>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label asp-for="Password"
+                       class="block text-xs font-bold text-[#001e40] mb-1.5">
+                    Mot de passe temporaire
+                </label>
+
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">
+                        lock
+                    </span>
+
+                    <input asp-for="Password"
+                           type="password"
+                           class="w-full pl-9 pr-3 py-2.5 text-sm bg-[#f2f3ff] border border-transparent rounded-xl focus:bg-white focus:border-[#0061a7] focus:ring-2 focus:ring-[#0061a7]/20 outline-none transition-all"
+                           placeholder="••••••••••••" />
+                </div>
+
+                <span asp-validation-for="Password"
+                      class="text-[11px] text-red-500 mt-1 block">
+                </span>
+            </div>
+
+            <!-- Submit -->
+            <div class="pt-2">
+                <button type="submit"
+                        class="w-full py-3.5 bg-[#001e40] hover:bg-[#0061a7] text-white font-bold text-sm rounded-xl transition-colors shadow-md flex items-center justify-center gap-2">
+
+                    <span class="material-symbols-outlined text-[18px]">
+                        person_add
+                    </span>
+
+                    <span>Enregistrer l'encadrant</span>
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Back -->
+        <div class="mt-6 pt-6 border-t border-gray-100 text-center">
+
+            <a asp-controller="Admin"
+               asp-action="Applications"
+               class="text-xs font-bold text-[#0061a7] hover:underline inline-flex items-center gap-1">
+
+                <span class="material-symbols-outlined text-[16px]">
+                    arrow_back
+                </span>
+
+                <span>Retour au tableau de bord</span>
+
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

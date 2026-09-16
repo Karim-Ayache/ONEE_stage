@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\views\\student\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:views\\student\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\models\\entities\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:models\\entities\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\models\\viewmodels\\registerstaffviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:models\\viewmodels\\registerstaffviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\views\\admin\\registersupervisor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:views\\admin\\registersupervisor.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|c:\\users\\ayach\\source\\repos\\onee_stage\\views\\admin\\registerhrmanager.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1D67B505-94F5-AC77-1DEB-B6BC42E8130E}|ONEE_Stage.csproj|solutionrelative:views\\admin\\registerhrmanager.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +46,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "Controllers\\StudentController.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAAAHsAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T11:53:50.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Student\\Profile.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Student\\Profile.cshtml",
+              "RelativeToolTip": "Views\\Student\\Profile.cshtml",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAuwDsAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-16T11:52:22.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAQwIcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-16T11:43:38.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\Entities\\Student.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Student.cs",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\Entities\\Student.cs",
+              "RelativeToolTip": "Models\\Entities\\Student.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T11:40:37.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RegisterStaffViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\ViewModels\\RegisterStaffViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\RegisterStaffViewModel.cs",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\ViewModels\\RegisterStaffViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\RegisterStaffViewModel.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAkwDQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T10:42:26.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\Entities\\Employee.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Employee.cs",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Models\\Entities\\Employee.cs",
+              "RelativeToolTip": "Models\\Entities\\Employee.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T10:38:16.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Controllers\\AdminController.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAjwLgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T09:57:33.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegisterHRManager.cshtml",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Admin\\RegisterHRManager.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\RegisterHRManager.cshtml",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Admin\\RegisterHRManager.cshtml",
+              "RelativeToolTip": "Views\\Admin\\RegisterHRManager.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAuwHIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-16T09:50:46.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterSupervisor.cshtml",
+              "DocumentMoniker": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Admin\\RegisterSupervisor.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\RegisterSupervisor.cshtml",
+              "ToolTip": "C:\\Users\\ayach\\source\\repos\\ONEE_Stage\\Views\\Admin\\RegisterSupervisor.cshtml",
+              "RelativeToolTip": "Views\\Admin\\RegisterSupervisor.cshtml",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAYwLsAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-16T09:56:51.515Z",
+              "EditorCaption": ""
             }
           ]
         }

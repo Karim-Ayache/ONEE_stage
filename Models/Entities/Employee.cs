@@ -2,8 +2,10 @@
 {
     public class Employee : User
     {
-        public string RegistrationNumber { get; set; } = string.Empty; // Matricule ONEE
-        public int? DepartmentId { get; set; }
-        public Department? Department { get; set; }
+        public string RegistrationNumber { get; set; } = string.Empty;
+
+        public string Department { get; set; } = string.Empty;
+
+        public string Specialization { get; set; } = string.Empty;
     }
 }
